@@ -1,12 +1,11 @@
-// データベースにアクセスするためのクライアントライブラリ
-import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 async function main() {
   const createLink = await prisma.link.create({
     data: {
-      descriotion: "テスト投稿",
+      description: "テスト投稿",
       url: "test.com",
     },
   });
@@ -21,5 +20,5 @@ main()
   })
   .finally(async () => {
     // データベースの接続を閉じる
-    prisma.$disconnect;
+    await prisma.$disconnect();
   });

@@ -1,6 +1,7 @@
 const { ApolloServer, gql } = require("apollo-server");
+const fs = require("fs");
+const path = require("path");
 
-//HackerNewsの投稿データ（本来はデータベースから取得する）
 const links = [
   {
     id: "link-0",
@@ -8,25 +9,6 @@ const links = [
     url: "udemy.com",
   },
 ];
-
-//GraphQLのスキーマ（データ構造）の定義
-//!はnullは許容しない
-const typeDefs = gql`
-  type Query {
-    info: String!
-    feed: [Link]!
-  }
-
-  type Mutaion {
-    post(url: String!, description: String!): Link!
-  }
-
-  type Link {
-    id: ID!
-    description: String!
-    url: String!
-  }
-`;
 
 const resolvers = {
   Query: {
@@ -49,8 +31,13 @@ const resolvers = {
   },
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs: gql(
+    fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf-8")
+  ),
+  resolvers,
+});
 
 server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
+  console.log(`🚀  サーバーが起動しました。URL: ${url}`);
 });

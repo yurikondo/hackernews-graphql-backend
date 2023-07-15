@@ -7,3 +7,9 @@ const typeDefs = gql`
     info: String!
   }
 `;
+
+const resolvers = {
+  Query: {
+    info: () => "Hacknewsクローン",
+  },
+};

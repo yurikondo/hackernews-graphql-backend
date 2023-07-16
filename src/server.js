@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 const { PrismaClient } = require("@prisma/client");
-const getUserId = require("./utils");
+const { getUserId } = require("./utils");
 
 const prisma = new PrismaClient();
 

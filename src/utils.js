@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-APP_SECRET = "Graphql";
+APP_SECRET = "Graphql-aaasom1";
 
 //トークンを複合するための関数
 function getTokenPayload(token) {

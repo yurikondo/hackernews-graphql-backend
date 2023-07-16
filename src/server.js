@@ -7,24 +7,17 @@ const getUserId = require("./utils");
 
 const prisma = new PrismaClient();
 
+//リゾルバ関係のファイル
+const Query = require("./resolvers/Query");
+const Mutation = require("./resolvers/Mutation");
+const Link = require("./resolvers/Link");
+const User = require("./resolvers/User");
+
 const resolvers = {
-  Query: {
-    info: () => "Hacknewsクローン",
-    feed: async (parent, args, context) => {
-      return context.prisma.link.findMany();
-    },
-  },
-  Mutation: {
-    post: (parent, args, context) => {
-      const newLink = context.prisma.link.create({
-        data: {
-          url: args.url,
-          description: args.description,
-        },
-      });
-      return newLink;
-    },
-  },
+  Query,
+  Mutation,
+  Link,
+  User,
 };
 
 const server = new ApolloServer({
